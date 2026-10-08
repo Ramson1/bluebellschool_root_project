@@ -87,7 +87,7 @@ for (const site of sites) {
 }
 
 // --- 3. website enquiry notices ---------------------------------------------
-// /api/notify already folds jmis_settings.adminEmail in server-side, so only the
+// /api/notify already folds bluebell_settings.adminEmail in server-side, so only the
 // extra staff copy list has to come from the environment.
 {
   const p = join(ROOT, 'bluebellschool-website', 'lib', 'enquiry.js');
@@ -105,7 +105,7 @@ for (const site of sites) {
     else {
       text = text.replace(from, () => [
         '// Extra staff to copy on every website enquiry / admissions notification. The',
-        '// school office address (jmis_settings.adminEmail) is folded in server-side by',
+        '// school office address (bluebell_settings.adminEmail) is folded in server-side by',
         '// /api/notify, so only the additions are listed here — and they come from the',
         '// environment, never from a hard-coded mailbox.',
         'const STAFF_NOTIFY_EMAILS = parseRecipients(process.env.NEXT_PUBLIC_RESULT_EMAIL_RECIPIENTS);',

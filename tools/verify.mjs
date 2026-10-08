@@ -139,8 +139,8 @@ const SCAN_DIRS = ['src', 'app', 'components', 'lib', 'public'];
 const SKIP = new Set(['node_modules', '.next', '.git', '.expo', '.swc', 'dist', 'build', 'out', 'android', 'ios', 'coverage']);
 const TEXT_EXT = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs', '.json', '.css', '.html', '.md', '.txt', '.env', '.local', '.py', '.sql']);
 
-// Deliberate keeps for Bluebell: the jmis_* TABLE NAMES (Bluebell keeps them so
-// JMIS fixes port byte-parallel — the JMIS HITS rule already exempts jmis_ and
+// Deliberate keeps for Bluebell: the bluebell_* TABLE NAMES (Bluebell keeps them so
+// JMIS fixes port byte-parallel — the JMIS HITS rule already exempts bluebell_ and
 // jmis- prefixed tokens), the client-side storage keys, the agency credit, and
 // the developer/owner accounts that gate the portals.
 const KEEPS = [
@@ -153,12 +153,15 @@ const KEEPS = [
   /rhemaexpertsolutions/gi,
   /rhema\.png/gi,
   /blackboxinfo01@gmail\.com/gi,
+  /blackboxtech\.online/gi,
+  /info@blackboxtech\.online/gi,
+  /blackbox-tech\.jpg/gi,
   /\+?2348035226642/g,
 ];
 const forbiddenAlt = FORBIDDEN_REFS.join('|'); // JMIS + Spring refs
 const HITS = [
-  // JMIS brand word, but NOT the jmis_ / jmis- prefixed identifiers we keep
-  // (table names, storage keys and the jmis_* glob used in comments).
+  // JMIS brand word, but NOT the bluebell_ / jmis- prefixed identifiers we keep
+  // (table names, storage keys and the bluebell_* glob used in comments).
   [/\bjmis(?!_|-|school-attendance)\w*/gi, 'JMIS'],
   [/jeshurun/gi, 'Jeshurun'],
   [new RegExp(`(${forbiddenAlt})`, 'gi'), 'another school\'s Supabase ref'],
@@ -235,7 +238,7 @@ function scanBranding() {
   } else {
     ok('no JMIS/Spring branding, foreign Supabase ref, brand green, Flutterwave or AdSense id outside the deliberate keeps');
   }
-  console.log(`  deliberate keeps (expected to remain): jmis_* table names + jmis-theme/jmis_impersonating storage keys, "Rhema Expert Solutions" agency credit + rhema.png, blackboxinfo01@gmail.com / rhemaexpertsolutions@gmail.com owner accounts`);
+  console.log(`  deliberate keeps (expected to remain): bluebell_* table names + jmis-theme/jmis_impersonating storage keys, "Black-Box Tech" agency credit (blackboxtech.online, info@blackboxtech.online, /blackbox-tech.jpg), blackboxinfo01@gmail.com owner account`);
 }
 
 // ---------------------------------------------------------- routes + assets

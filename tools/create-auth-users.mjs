@@ -3,10 +3,10 @@
 // the dashboard. Needs the project's service_role key (tools/backend.json, set
 // by tools/set-backend.mjs); the sbp_ Management token has no auth endpoints.
 //
-// Roles are NOT set here: jmis_userauth / jmis_teacherauth rows (seeded in
+// Roles are NOT set here: bluebell_userauth / bluebell_teacherauth rows (seeded in
 // db/04, managed in the admin portals) decide who is admin, and
-// blackboxinfo01@gmail.com / rhemaexpertsolutions@gmail.com are developer
-// accounts built into src/utils/authUtils.js (DEV_EMAILS) — this script only
+// blackboxinfo01@gmail.com is the developer/owner account built into
+// src/utils/authUtils.js (DEV_EMAILS/OWNER_EMAIL) — this script only
 // makes sure their Auth users exist with the right password.
 //
 //   node tools/create-auth-users.mjs            # dry run (default)
@@ -85,7 +85,11 @@ for (const { email, password, role } of accounts) {
     method: 'POST',
     headers,
     // email_confirm: the school signs in immediately; no confirmation mail round-trip.
-    body: JSON.stringify({ email, password, email_confirm: true }),
+    // data.email: GoTrue's admin API does NOT mirror the top-level email into
+    // user_metadata automatically (unlike the client signup flow), and the admin
+    // layout's authorization check reads `user.user_metadata.email` — without
+    // this, a freshly created user is denied at login.
+    body: JSON.stringify({ email, password, email_confirm: true, data: { email } }),
   });
   const text = await res.text();
   if (!res.ok) {

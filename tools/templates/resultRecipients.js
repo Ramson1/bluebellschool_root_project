@@ -3,7 +3,7 @@
 // Nothing is hard-coded here, so this build can never mail another school's
 // inbox. Resolution order:
 //   1. NEXT_PUBLIC_RESULT_EMAIL_RECIPIENTS — comma, space or semicolon separated
-//   2. jmis_settings.adminEmail + jmis_settings.additionalemails (Settings page)
+//   2. bluebell_settings.adminEmail + bluebell_settings.additionalemails (Settings page)
 // An empty list is returned when neither is configured; emailNotificationService
 // then reports "No email recipients configured" instead of guessing a recipient.
 
@@ -27,7 +27,7 @@ export async function resolveResultRecipients(supabase) {
 
   try {
     const { data, error } = await supabase
-      .from('jmis_settings')
+      .from('bluebell_settings')
       .select('adminEmail, additionalemails')
       .limit(1);
     if (!error && data && data.length) {

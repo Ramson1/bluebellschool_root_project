@@ -61,7 +61,7 @@ The 16 status greens (`#28a745`, `#198754`, `#1cc88a`, …) are deliberately
    statements run through a `bb_try()` helper that reports-and-skips, so pasting
    it before the tables exist would silently create zero indexes.
 3. `node tools/create-auth-users.mjs --apply` — the login accounts (Supabase
-   Auth owns the passwords; `jmis_userauth` rows grant the roles).
+   Auth owns the passwords; `bluebell_userauth` rows grant the roles).
 
 Until step 1 the build carries `BLUEBELL_SUPABASE_REF_PLACEHOLDER` and still
 compiles and boots; until step 2 every screen comes up empty, which is expected
@@ -69,14 +69,15 @@ and is not a clone defect.
 
 ## Parity rule
 
-Table names stay `jmis_*` (`brand.json.tablePrefix = "jmis"`,
-`renameTables = false`): Bluebell has its **own** project, so nothing needs
-renaming, and keeping the names is what makes `diff -rq ../jmis/jmischool/src
-bluebellschool/src` a meaningful audit. Deliberately retained JMIS identifiers:
-`localStorage` key `jmis-theme`, `jmis_impersonating`, and the **Rhema Expert
-Solutions** agency credit in the footers (`/rhema.png`, `+2348035226642`,
-`rhemaexpertsolutions@gmail.com`) plus the agency's developer accounts in
-`src/utils/authUtils.js` (`DEV_EMAILS` / `OWNER_EMAIL`).
+Table names use the `bluebell_*` prefix (`brand.json.tablePrefix = "bluebell"`,
+`renameTables = true`) — Bluebell has its **own** Supabase project, so the
+JMIS `jmis_*` identifiers were rewritten via `tools/rename-tables.mjs`.
+Deliberately retained JMIS identifiers: `localStorage` keys `jmis-theme` and
+`jmis_impersonating` (client-side, not database objects). The website footer
+carries a **Black-Box Tech** agency credit (`/blackbox-tech.jpg`,
+`info@blackboxtech.online`, `https://blackboxtech.online`); the sole built-in
+developer/owner account is `blackboxinfo01@gmail.com` (`DEV_EMAILS` /
+`OWNER_EMAIL` in `src/utils/authUtils.js` and `serverAdminAuth.ts`).
 
 ## Toolchain
 

@@ -21,7 +21,7 @@ import { join } from 'node:path';
 import { ROOT, BRAND, backend, assertNotForbidden } from './guard.mjs';
 
 const ADMIN = BRAND.dirs[0];
-// Paste order. There is no rename step: Bluebell keeps jmis_* and owns its project.
+// Paste order. There is no rename step: Bluebell keeps bluebell_* and owns its project.
 const FILES = ['01_schema.sql', '02_rls.sql', '00_indexes.sql', '03_storage.sql', '04_seed_bluebell.sql'];
 
 const arg = (name) => (process.argv.find((a) => a.startsWith(`--${name}=`)) || '').split('=').slice(1).join('=');

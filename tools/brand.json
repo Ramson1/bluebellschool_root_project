@@ -28,14 +28,13 @@
   "supabase": {
     "jmisRef": "btnatydmfunhwgoeguus",
     "forbiddenRefs": [
-      "btnatydmfunhwgoeguus",
-      "wjqjreiuahykuxyrugou"
+      "btnatydmfunhwgoeguus"
     ],
     "ref": "BLUEBELL_SUPABASE_REF_PLACEHOLDER",
     "keysFile": "tools/backend.json"
   },
-  "tablePrefix": "jmis",
-  "renameTables": false,
+  "tablePrefix": "bluebell",
+  "renameTables": true,
   "paletteFile": "tools/palette.json",
   "logoMaster": "brand/bluebell-logo-master.png",
   "siteImageWeightCeilingBytes": 4194304,

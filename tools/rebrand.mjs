@@ -11,7 +11,7 @@
 // is greppable and boots, so this pass can run long before the project exists.
 //
 // Rules are case-sensitive and longest-first on purpose: `JMIS` -> `Bluebell`
-// must never reach the lowercase `jmis_*` table names, which stay as they are
+// must never reach the lowercase `bluebell_*` table names, which stay as they are
 // because Bluebell gets its own database project.
 //
 // It prints a per-rule hit count plus the touched-file list, and flags any brand
@@ -215,7 +215,7 @@ const ENV_KEYS = {
   STAFF_URL: ORIGINS['bluebellschool-staff'],
   STUDENT_URL: ORIGINS['bluebellschool-student'],
   // Result/admission notifications read this first and fall back to
-  // jmis_settings.adminEmail, so Bluebell's mail can never reach JMIS's inbox.
+  // bluebell_settings.adminEmail, so Bluebell's mail can never reach JMIS's inbox.
   NEXT_PUBLIC_RESULT_EMAIL_RECIPIENTS: '',
 };
 
