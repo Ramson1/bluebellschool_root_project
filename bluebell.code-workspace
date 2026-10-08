@@ -1,0 +1,81 @@
+{
+  "folders": [
+    { "name": "bluebell — admin", "path": "bluebellschool" },
+    { "name": "bluebell — website + CBT", "path": "bluebellschool-website" },
+    { "name": "bluebell — staff portal", "path": "bluebellschool-staff" },
+    { "name": "bluebell — student portal", "path": "bluebellschool-student" },
+    { "name": "bluebell — attendance app (Expo)", "path": "bluebellschool-attendance-app" },
+    { "name": "tools / db / brand", "path": "." }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.next": true,
+      "**/node_modules": true,
+      "**/.expo": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/.next": true,
+      "**/package-lock.json": true
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "dev:admin (3300)",
+        "type": "shell",
+        "command": "npm run dev",
+        "options": { "cwd": "${workspaceFolder:bluebell — admin}" }
+      },
+      {
+        "label": "dev:website (3301)",
+        "type": "shell",
+        "command": "npm run dev",
+        "options": { "cwd": "${workspaceFolder:bluebell — website + CBT}" }
+      },
+      {
+        "label": "dev:staff (3302)",
+        "type": "shell",
+        "command": "npm run dev",
+        "options": { "cwd": "${workspaceFolder:bluebell — staff portal}" }
+      },
+      {
+        "label": "dev:student (3303)",
+        "type": "shell",
+        "command": "npm run dev",
+        "options": { "cwd": "${workspaceFolder:bluebell — student portal}" }
+      },
+      {
+        "label": "dev:attendance web (8091)",
+        "type": "shell",
+        "command": "npm run web",
+        "options": { "cwd": "${workspaceFolder:bluebell — attendance app (Expo)}" }
+      },
+      {
+        "label": "rebrand: dry-run",
+        "type": "shell",
+        "command": "node tools/rebrand.mjs --dry",
+        "options": { "cwd": "${workspaceFolder}" }
+      },
+      {
+        "label": "rebrand: apply",
+        "type": "shell",
+        "command": "node tools/rebrand.mjs",
+        "options": { "cwd": "${workspaceFolder}" }
+      },
+      {
+        "label": "verify: full",
+        "type": "shell",
+        "command": "node tools/verify.mjs",
+        "options": { "cwd": "${workspaceFolder}" }
+      },
+      {
+        "label": "db: print paste order",
+        "type": "shell",
+        "command": "node tools/run-sql.mjs",
+        "options": { "cwd": "${workspaceFolder}" }
+      }
+    ]
+  }
+}

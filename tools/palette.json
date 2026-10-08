@@ -1,0 +1,311 @@
+{
+  "_comment": [
+    "Single source of truth for the Bluebell International School brand colours.",
+    "Sampled from brand/bluebell-logo-master.png with tools/sample-palette.mjs:",
+    "of 529,662 coloured pixels 44.2% are blue and 55.1% yellow. Dominant blues",
+    "#022aa1 (20.0%), #03289b (13.7%), #04248b, #0832a5, #011b97, #021988; the bell",
+    "is #019cf2 and the laurel wreath is #fde616. Every brand green in the JMIS clone",
+    "is remapped onto this ramp by tools/rebrand.mjs (it reads greenToBlue below);",
+    "the SOURCE side of every rule is byte-identical to the JMIS green set so a",
+    "future JMIS port needs no new rules.",
+    "Status greens (attendance \"present\", payment \"paid\") are NOT brand colours and",
+    "are never remapped - see keepGreen.",
+    "DECORATIVE-ONLY RULE: accentCyan (#019cf2, 2.98:1 on white) and accentGold",
+    "(#fde616, 1.27:1 on white) both fail WCAG 3:1 for graphical objects, so neither",
+    "may ever carry or sit behind text. Gold on primary navy is 8.93:1 and is the",
+    "approved crest combination.",
+    "contrastVsWhite is the WCAG ratio of white text on the colour; >=4.5 is AA."
+  ],
+  "sampled": {
+    "source": "brand/bluebell-logo-master.png",
+    "size": "1272x1237",
+    "colouredPixels": 529662,
+    "blueShare": "44.2%",
+    "yellowShare": "55.1%",
+    "dominantBlue": "#022aa1",
+    "crestNavy": "#011b97",
+    "bellCyan": "#019cf2",
+    "laurelGold": "#fde616"
+  },
+  "slots": {
+    "darker": {
+      "hex": "#01145c",
+      "role": "darkest outline / footer ground (derived from deep)"
+    },
+    "deep": {
+      "hex": "#011b97",
+      "role": "sampled crest navy - headings, dark headers, ring text"
+    },
+    "mid": {
+      "hex": "#04248b",
+      "role": "hover / pressed brand surfaces (sampled)"
+    },
+    "primary": {
+      "hex": "#022aa1",
+      "role": "brand primary: buttons, links, active nav (dominant sampled blue, 20%)"
+    },
+    "primaryBright": {
+      "hex": "#0832a5",
+      "role": "bright brand accent, gradients, focus rings (sampled)"
+    },
+    "light": {
+      "hex": "#1f4fd8",
+      "role": "light brand blue - AA-safe for text"
+    },
+    "lighter": {
+      "hex": "#94b6f0",
+      "role": "pale brand accent, chart lines (derived)"
+    },
+    "soft": {
+      "hex": "#e8f0fe",
+      "role": "brand tint fills, borders, hover rows"
+    },
+    "accentCyan": {
+      "hex": "#019cf2",
+      "role": "crest bell cyan - DECORATIVE ONLY, fails 3:1 on white"
+    },
+    "accentGold": {
+      "hex": "#fde616",
+      "role": "crest laurel gold - DECORATIVE ONLY, fails 3:1 on white"
+    }
+  },
+  "contrastVsWhite": {
+    "darker": "16.72",
+    "deep": "13.08",
+    "mid": "12.88",
+    "primary": "11.36",
+    "primaryBright": "10.45",
+    "light": "6.63",
+    "lighter": "2.06",
+    "soft": "1.15",
+    "accentCyan": "2.98",
+    "accentGold": "1.27"
+  },
+  "greenToBlue": [
+    [
+      "#4e9f38",
+      "#022aa1",
+      "primary"
+    ],
+    [
+      "#43902f",
+      "#03289b",
+      "primary, slightly deeper (sampled)"
+    ],
+    [
+      "#56ab2f",
+      "#0832a5",
+      "primaryBright (sampled)"
+    ],
+    [
+      "#45a049",
+      "#1f4fd8",
+      "light"
+    ],
+    [
+      "#2e7d32",
+      "#1f4fd8",
+      "light"
+    ],
+    [
+      "#2d7a3c",
+      "#1f4fd8",
+      "light"
+    ],
+    [
+      "#3b7a3f",
+      "#04248b",
+      "mid (sampled)"
+    ],
+    [
+      "#1f7a4d",
+      "#1f4fd8",
+      "light"
+    ],
+    [
+      "#0f9d6b",
+      "#019cf2",
+      "teal-green -> crest bell cyan (decorative)"
+    ],
+    [
+      "#7cc95e",
+      "#4a7fe0",
+      "light (derived step)"
+    ],
+    [
+      "#a8e063",
+      "#7ea6ef",
+      "lighter (derived step)"
+    ],
+    [
+      "#1e9e2a",
+      "#1f4fd8",
+      "the one green settings.css used directly"
+    ],
+    [
+      "#02730f",
+      "#021988",
+      "deep-ish (sampled)"
+    ],
+    [
+      "#357425",
+      "#04248b",
+      "mid (sampled)"
+    ],
+    [
+      "#1e5128",
+      "#011b97",
+      "deep (sampled)"
+    ],
+    [
+      "#006400",
+      "#011b97",
+      "deep"
+    ],
+    [
+      "#0b3d29",
+      "#01145c",
+      "darker"
+    ],
+    [
+      "#143a1d",
+      "#01145c",
+      "darker"
+    ],
+    [
+      "#86efac",
+      "#94b6f0",
+      "lighter"
+    ],
+    [
+      "#7ee2a8",
+      "#a8c2f2",
+      "lighter"
+    ],
+    [
+      "#7fd88f",
+      "#9dbdf2",
+      "lighter"
+    ],
+    [
+      "#c9dcc9",
+      "#c7d8f5",
+      "soft border"
+    ],
+    [
+      "#eaf4e8",
+      "#e8f0fe",
+      "brand tint"
+    ]
+  ],
+  "rgbaGreenToBlue": [
+    [
+      "78, 159, 56",
+      "2, 42, 161",
+      "primary"
+    ],
+    [
+      "30, 81, 40",
+      "1, 27, 151",
+      "deep"
+    ],
+    [
+      "46, 125, 50",
+      "31, 79, 216",
+      "light"
+    ],
+    [
+      "134, 239, 172",
+      "148, 182, 240",
+      "lighter"
+    ],
+    [
+      "127, 216, 143",
+      "157, 189, 242",
+      "lighter"
+    ],
+    [
+      "126, 226, 168",
+      "168, 194, 242",
+      "lighter"
+    ],
+    [
+      "67, 144, 47",
+      "3, 40, 155",
+      "primary"
+    ],
+    [
+      "53, 116, 37",
+      "4, 36, 139",
+      "mid"
+    ],
+    [
+      "31, 122, 77",
+      "31, 79, 216",
+      "light"
+    ],
+    [
+      "15, 157, 107",
+      "1, 156, 242",
+      "cyan accent"
+    ],
+    [
+      "124, 201, 94",
+      "74, 127, 224",
+      "light"
+    ],
+    [
+      "59, 122, 63",
+      "4, 36, 139",
+      "mid"
+    ],
+    [
+      "11, 61, 41",
+      "1, 20, 92",
+      "darker"
+    ],
+    [
+      "20, 58, 29",
+      "1, 20, 92",
+      "darker"
+    ],
+    [
+      "30, 158, 42",
+      "31, 79, 216",
+      "light"
+    ],
+    [
+      "2, 115, 15",
+      "2, 25, 136",
+      "deep-ish"
+    ],
+    [
+      "168, 224, 99",
+      "126, 166, 239",
+      "lighter"
+    ],
+    [
+      "86, 171, 47",
+      "8, 50, 165",
+      "primaryBright"
+    ]
+  ],
+  "keepGreen": [
+    "#28a745",
+    "#198754",
+    "#1cc88a",
+    "#4caf50",
+    "#22c55e",
+    "#d4edda",
+    "#155724",
+    "#8fd19a",
+    "#1e7e34",
+    "#0f5132",
+    "#27ae60",
+    "#a3e4d7",
+    "#d5f5e3",
+    "#eafaf1",
+    "#038a1b",
+    "#04931d"
+  ]
+}

@@ -1,0 +1,3 @@
+# No EOL normalisation: the scripted passes compare against and rewrite
+# the working tree byte-for-byte, so what git stores must be what is on disk.
+* -text

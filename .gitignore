@@ -1,0 +1,47 @@
+# Dependencies / build output
+node_modules/
+.next/
+out/
+build/
+dist/
+.expo/
+.turbo/
+.swc/
+coverage/
+
+# ---------------------------------------------------------------------------
+# The five app trees now have their own GitHub remotes (Ramson1/bluebellschool*,
+# bluebellschool_website, bluebellschool_staff, bluebellschool_student,
+# bluebellschool_attendance_app) so they are excluded from this root repo.
+# This root repo tracks only the workspace scaffolding: db/, tools/, brand/,
+# README, .gitignore, .gitattributes, bluebell.code-workspace.
+# ---------------------------------------------------------------------------
+bluebellschool/
+bluebellschool-website/
+bluebellschool-staff/
+bluebellschool-student/
+bluebellschool-attendance-app/
+
+# Secrets — never commit. Per-app .env / .env.local carry the Supabase keys,
+# the Gmail app password and the result-notification inboxes.
+.env
+.env.*
+!.env.example
+tools/backend.json
+tools/site-content.json
+
+# Generated media (recreate with: node tools/rebrand-assets.mjs and
+# node tools/build-site-images.mjs)
+brand/site/
+.verify/
+
+# IDE / agent scratch
+.qoder/
+.qoder_tmp/
+.vscode/
+*.stackdump
+next-panic-*.log
+
+# OS noise
+.DS_Store
+Thumbs.db

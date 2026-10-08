@@ -1,0 +1,57 @@
+{
+  "_comment": "Single source of truth for the Bluebell clone. Every tool in tools/ reads this file.",
+  "school": {
+    "name": "Bluebell International School",
+    "short": "Bluebell",
+    "adjective": "Bluebell",
+    "motto": "Wisdom, Integrity, Courage",
+    "levelsLine": "Wisdom · Integrity · Courage"
+  },
+  "source": {
+    "root": "C:/Users/Black-Box/Documents/builds/jmis",
+    "prefix": "jmis"
+  },
+  "dirs": [
+    "bluebellschool",
+    "bluebellschool-website",
+    "bluebellschool-staff",
+    "bluebellschool-student",
+    "bluebellschool-attendance-app"
+  ],
+  "ports": {
+    "bluebellschool": 3300,
+    "bluebellschool-website": 3301,
+    "bluebellschool-staff": 3302,
+    "bluebellschool-student": 3303
+  },
+  "attendanceWebPort": 8091,
+  "supabase": {
+    "jmisRef": "btnatydmfunhwgoeguus",
+    "forbiddenRefs": [
+      "btnatydmfunhwgoeguus",
+      "wjqjreiuahykuxyrugou"
+    ],
+    "ref": "BLUEBELL_SUPABASE_REF_PLACEHOLDER",
+    "keysFile": "tools/backend.json"
+  },
+  "tablePrefix": "jmis",
+  "renameTables": false,
+  "paletteFile": "tools/palette.json",
+  "logoMaster": "brand/bluebell-logo-master.png",
+  "siteImageWeightCeilingBytes": 4194304,
+  "titles": {
+    "bluebellschool": "Bluebell International School",
+    "bluebellschool-website": "Bluebell School — Bluebell International School",
+    "bluebellschool-staff": "Bluebell Staff Portal",
+    "bluebellschool-student": "Bluebell Student Portal"
+  },
+  "placeholders": "BLUEBELL_<THING>_PLACEHOLDER",
+  "assets": {
+    "markBox": {
+      "cx": 0.5,
+      "cy": 0.49,
+      "side": 0.3
+    },
+    "markBoxComment": "centre-shield crop of the round crest: side=0.30 x trimmedWidth, centred at (0.5,0.49); drops the ring lettering so the mark stays readable at 16-64px (tuned via .verify/mark-preview.jpg)"
+  }
+}
