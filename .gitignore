@@ -21,6 +21,7 @@ bluebellschool-website/
 bluebellschool-staff/
 bluebellschool-student/
 bluebellschool-attendance-app/
+bluebell-offline-cbt/
 
 # Secrets — never commit. Per-app .env / .env.local carry the Supabase keys,
 # the Gmail app password and the result-notification inboxes.
