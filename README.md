@@ -1,23 +1,30 @@
-# Bluebell International School — JMIS clone
+# Black-Box Institution — school-management build
 
-A standalone build of the five JMIS school-management apps, rebranded for
-**Bluebell International School** (motto: *Wisdom, Integrity, Courage*).
+A standalone build of the JMIS school-management apps, **rebranded for
+Black-Box Institution** (motto: *Discover. Design. Deliver.*). It began as a
+direct JMIS clone (`builds/jmis/jmischool*`) renamed to *Bluebell International
+School*, and was then rebranded again to Black-Box by
+`tools/rebrand-blackbox.mjs` — name, motto and logo, over all six apps. The
+**blue brand colour and every table, route, component and business rule are
+unchanged**; the `bluebell_*` database identifiers are kept verbatim (see
+*Parity rule* below), so the SQL bundle and callsites stay byte-parallel with
+`builds/jmis/jmischool*`.
 
-Only four things differ from JMIS: the **school name**, the **logo**, the
-**brand colour** (JMIS green → crest blue) and the **Supabase project**. Every
-table, route, component and business rule is byte-parallel with
-`builds/jmis/jmischool*`, so a future JMIS fix can be `cp`-ported and
-`diff`-checked rather than re-implemented.
+The Black-Box **logo** — a square black-box mark — is sourced from
+`brand/blackbox-logo-master.png` and replaces the Bluebell crest in every
+logo, favicon, apple-touch, Expo icon and splash slot across all apps. The
+wordmark lives at `brand/blackbox-wordmark.png`.
 
-## The five apps
+## The apps
 
 | Directory | What it is | Dev port | Served `<title>` |
 |---|---|---|---|
-| `bluebellschool` | admin portal (app-router + `src/pages_components`) | 3300 | Bluebell International School |
-| `bluebellschool-website` | public site + student CBT | 3301 | Bluebell School — Bluebell International School |
-| `bluebellschool-staff` | staff portal | 3302 | Bluebell Staff Portal |
-| `bluebellschool-student` | student portal | 3303 | Bluebell Student Portal |
+| `bluebellschool` | admin portal (app-router + `src/pages_components`) | 3300 | Black-Box Institution |
+| `bluebellschool-website` | public site + student CBT | 3301 | Black-Box Institution |
+| `bluebellschool-staff` | staff portal | 3302 | Black-Box Staff Portal |
+| `bluebellschool-student` | student portal | 3303 | Black-Box Student Portal |
 | `bluebellschool-attendance-app` | Expo React Native attendance app | 8091 (`npm run web`) | — |
+| `bluebell-offline-cbt` | offline Electron CBT desktop app | — | Black-Box Offline CBT |
 
 Identify a running server by its served `<title>`, **never** by remembered
 port: `next dev` reassigns when a port is busy, and one server per project
@@ -27,7 +34,7 @@ directory holds `.next/dev/lock`.
 
 `tools/brand.json` is the single source of truth (names, dirs, ports,
 Supabase ref, table prefix, titles) and `tools/palette.json` the single source
-of truth for colour. Both are read by the scripts; nothing hard-codes a Bluebell
+of truth for colour. Both are read by the scripts; nothing hard-codes a Black-Box
 value anywhere else.
 
 Sampled from `brand/bluebell-logo-master.png` (44.2 % blue / 55.1 % yellow of
@@ -47,7 +54,7 @@ The 16 status greens (`#28a745`, `#198754`, `#1cc88a`, …) are deliberately
 
 ## Provisioning order
 
-1. `node tools/set-backend.mjs --url=… --anon=… --service=…` — adopts Bluebell's
+1. `node tools/set-backend.mjs --url=… --anon=… --service=…` — adopts Black-Box's
    own Supabase project (writes gitignored `tools/backend.json`, rewrites all
    four env files + `app.json.extra`, re-runs `rebrand.mjs`).
 2. Apply the database: `node tools/run-sql.mjs --apply` with a `sbp_`
@@ -70,7 +77,7 @@ and is not a clone defect.
 ## Parity rule
 
 Table names use the `bluebell_*` prefix (`brand.json.tablePrefix = "bluebell"`,
-`renameTables = true`) — Bluebell has its **own** Supabase project, so the
+`renameTables = true`) — Black-Box has its **own** Supabase project, so the
 JMIS `jmis_*` identifiers were rewritten via `tools/rename-tables.mjs`.
 Deliberately retained JMIS identifiers: `localStorage` keys `jmis-theme` and
 `jmis_impersonating` (client-side, not database objects). The website footer
@@ -79,16 +86,29 @@ carries a **Black-Box Tech** agency credit (`/blackbox-tech.jpg`,
 developer/owner account is `blackboxinfo01@gmail.com` (`DEV_EMAILS` /
 `OWNER_EMAIL` in `src/utils/authUtils.js` and `serverAdminAuth.ts`).
 
+Deliberately retained (internal, not visible branding): the `bluebell_*`
+table/column names, the `bluebellschool*` directory and package names, the
+`jmis-theme` / `jmis_impersonating` `localStorage` keys and the
+`BLUEBELL_*_PLACEHOLDER` sentinels. The old Bluebell contact domain/email were
+rewritten to `blackboxtech.online` / `info@blackboxtech.online`.
+
+> **Live database:** the already-provisioned `bluebell_settings` row still
+> carries the old school name and hero text (the DB was intentionally not
+> migrated). Update it in the admin **Setting** page, or re-apply
+> `db/04_seed_bluebell.sql`, to match the new branding. The app's own titles,
+> headers, labels and logos are already Black-Box.
+
 ## Toolchain
 
 | Script | What it does |
 |---|---|
-| `tools/rebrand.mjs` | ordered, case-sensitive name/phrase/colour pass + ports + env + Expo `app.json`; `--dry` prints per-rule hit counts |
+| `tools/rebrand-blackbox.mjs` | the Black-Box pass: case-sensitive `Bluebell → Black-Box` name/motto rewrite (never touches `bluebell_*` identifiers) **plus** rebuilds every logo/favicon/app-icon/splash slot from `brand/blackbox-logo-master.png`; `--dry`, `--text-only`, `--assets-only` |
+| `tools/rebrand.mjs` | **legacy** JMIS → Bluebell pass (name/phrase/colour + ports + env + Expo `app.json`). Retained for the `set-backend.mjs` backend flow; do not run on the Black-Box tree |
 | `tools/harden.mjs` | cross-tenant fixes that must survive a future JMIS port (payment key, AdSense, manifest, EAS identity, result recipients) |
-| `tools/rebrand-assets.mjs` | derives every logo/favicon/ICO/Expo icon slot from the master crest |
+| `tools/rebrand-assets.mjs` | derives every logo/favicon/ICO/Expo icon slot from the round master crest (legacy; superseded by `rebrand-blackbox.mjs` for the square Black-Box mark) |
 | `tools/build-site-images.mjs` | optimises `brand/site/` into `public/site/` for website + admin |
 | `tools/gen-schema.mjs` | generates `db/*` from the live JMIS PostgREST catalog (read-only) plus the clone's own `.from()` callsites |
-| `tools/set-backend.mjs` | one command to adopt Bluebell's Supabase project |
+| `tools/set-backend.mjs` | one command to adopt Black-Box's Supabase project |
 | `tools/run-sql.mjs` | applies `db/*` through the Supabase Management API, or prints the paste order |
 | `tools/create-auth-users.mjs` | creates login accounts through GoTrue (dry-run by default) |
 | `tools/syntax-check.mjs` | babel-parses every source file; separates clone damage from pre-existing JMIS issues |
@@ -105,6 +125,6 @@ developer/owner account is `blackboxinfo01@gmail.com` (`DEV_EMAILS` /
 3. Nothing may target `btnatydmfunhwgoeguus` (JMIS's live project) or
    `wjqjreiuahykuxyrugou` (another clone's); the tools hard-refuse them and the
    brand scan fails on either string appearing in source.
-4. Unknown Bluebell facts are `BLUEBELL_<THING>_PLACEHOLDER`, never a plausible
+4. Unknown Black-Box facts are `BLUEBELL_<THING>_PLACEHOLDER`, never a plausible
    invention.
 5. No secret is ever printed — env tooling reports names, lengths and yes/no.

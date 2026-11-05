@@ -252,4 +252,4 @@ select bb_try($q$CREATE INDEX IF NOT EXISTS idx_bluebell_result_history_class ON
 drop function bb_try(text);
 
 -- 191 statement(s) kept, 181 pruned as already-applied or non-additive,
--- 6 pruned because their table is not part of Bluebell's provisioned set.
+-- 6 pruned because their table is not part of Black-Box's provisioned set.

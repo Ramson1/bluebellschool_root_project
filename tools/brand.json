@@ -1,11 +1,11 @@
 {
-  "_comment": "Single source of truth for the Bluebell clone. Every tool in tools/ reads this file.",
+  "_comment": "Single source of truth for the Black-Box Institution build. Every tool in tools/ reads this file.",
   "school": {
-    "name": "Bluebell International School",
-    "short": "Bluebell",
-    "adjective": "Bluebell",
-    "motto": "Wisdom, Integrity, Courage",
-    "levelsLine": "Wisdom · Integrity · Courage"
+    "name": "Black-Box Institution",
+    "short": "Black-Box",
+    "adjective": "Black-Box",
+    "motto": "Discover. Design. Deliver.",
+    "levelsLine": "Discover · Design · Deliver"
   },
   "source": {
     "root": "C:/Users/Black-Box/Documents/builds/jmis",
@@ -36,13 +36,16 @@
   "tablePrefix": "bluebell",
   "renameTables": true,
   "paletteFile": "tools/palette.json",
-  "logoMaster": "brand/bluebell-logo-master.png",
+  "logoMaster": "brand/blackbox-logo-master.png",
+  "wordmark": "brand/blackbox-wordmark.png",
+  "favicon": "brand/blackbox-favicon.ico",
+  "appleTouch": "brand/blackbox-apple-touch.png",
   "siteImageWeightCeilingBytes": 4194304,
   "titles": {
-    "bluebellschool": "Bluebell International School",
-    "bluebellschool-website": "Bluebell School — Bluebell International School",
-    "bluebellschool-staff": "Bluebell Staff Portal",
-    "bluebellschool-student": "Bluebell Student Portal"
+    "bluebellschool": "Black-Box Institution",
+    "bluebellschool-website": "Black-Box Institution",
+    "bluebellschool-staff": "Black-Box Staff Portal",
+    "bluebellschool-student": "Black-Box Student Portal"
   },
   "placeholders": "BLUEBELL_<THING>_PLACEHOLDER",
   "assets": {
@@ -51,6 +54,6 @@
       "cy": 0.49,
       "side": 0.3
     },
-    "markBoxComment": "centre-shield crop of the round crest: side=0.30 x trimmedWidth, centred at (0.5,0.49); drops the ring lettering so the mark stays readable at 16-64px (tuned via .verify/mark-preview.jpg)"
+    "markBoxComment": "Legacy centre-shield crop for the round Black-Box crest; unused now that the brand mark is the square Black-Box icon."
   }
 }

@@ -1,4 +1,7 @@
-// Rebrand the JMIS clone into Bluebell International School.
+// LEGACY — rebrands the JMIS clone into Bluebell International School and
+// rewrites env/backend/package files. Superseded for this build by
+// tools/rebrand-blackbox.mjs; do NOT run this on the Black-Box tree.
+//
 // Run from builds/bluebell:  node tools/rebrand.mjs [--dry]
 //
 // Everything is a deterministic, ordered text pass over source files only:

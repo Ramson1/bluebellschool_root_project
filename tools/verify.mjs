@@ -22,7 +22,7 @@ const APPS = [
   { dir: D[1], port: P[D[1]], expectTitle: new RegExp(T[D[1]], 'i'), label: 'website' },
   { dir: D[2], port: P[D[2]], expectTitle: new RegExp(T[D[2]], 'i'), label: 'staff' },
   { dir: D[3], port: P[D[3]], expectTitle: new RegExp(T[D[3]], 'i'), label: 'student' },
-  { dir: D[4], port: ATTENDANCE_WEB_PORT, expectTitle: /bluebell|expo|attendance/i, label: 'attendance (expo web)', expoOnly: true },
+  { dir: D[4], port: ATTENDANCE_WEB_PORT, expectTitle: /black-?box|expo|attendance/i, label: 'attendance (expo web)', expoOnly: true },
 ];
 
 const ROUTES = {
@@ -117,7 +117,7 @@ async function probeDatabase() {
   else {
     const row = JSON.parse(s.body.toString() || '[]')[0];
     if (!row) bad(`${PREFIX}_settings is empty — paste db/04_seed_bluebell.sql`);
-    else if (!/bluebell/i.test(row.schoolname || '')) bad(`${PREFIX}_settings.schoolname is "${row.schoolname}" — expected ${BRAND.school.name}`);
+    else if (!/black-?box/i.test(row.schoolname || '')) bad(`${PREFIX}_settings.schoolname is "${row.schoolname}" — expected ${BRAND.school.name}`);
     else ok(`seeded settings row present: "${row.schoolname}" (term ${row.term || '—'}, session ${row.session || '—'})`);
   }
 
@@ -139,10 +139,11 @@ const SCAN_DIRS = ['src', 'app', 'components', 'lib', 'public'];
 const SKIP = new Set(['node_modules', '.next', '.git', '.expo', '.swc', 'dist', 'build', 'out', 'android', 'ios', 'coverage']);
 const TEXT_EXT = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs', '.json', '.css', '.html', '.md', '.txt', '.env', '.local', '.py', '.sql']);
 
-// Deliberate keeps for Bluebell: the bluebell_* TABLE NAMES (Bluebell keeps them so
-// JMIS fixes port byte-parallel — the JMIS HITS rule already exempts bluebell_ and
-// jmis- prefixed tokens), the client-side storage keys, the agency credit, and
-// the developer/owner accounts that gate the portals.
+// Deliberate keeps for Black-Box: the bluebell_* TABLE/COLUMN NAMES (kept verbatim
+// so the SQL bundle and callsites stay intact — the Bluebell HITS rule below is
+// case-sensitive, so lowercase bluebell_* identifiers never match it), the
+// client-side storage keys, the agency credit, and the developer/owner accounts
+// that gate the portals.
 const KEEPS = [
   /jmis-theme/gi,
   /jmis_impersonating/gi,
@@ -163,6 +164,8 @@ const HITS = [
   // JMIS brand word, but NOT the bluebell_ / jmis- prefixed identifiers we keep
   // (table names, storage keys and the bluebell_* glob used in comments).
   [/\bjmis(?!_|-|school-attendance)\w*/gi, 'JMIS'],
+  [/Bluebell\w*/g, 'Bluebell brand name'],
+  [/Wisdom, Integrity/gi, 'Bluebell motto'],
   [/jeshurun/gi, 'Jeshurun'],
   [new RegExp(`(${forbiddenAlt})`, 'gi'), 'another school\'s Supabase ref'],
   [/\bspring\b/gi, 'Spring (precedent-build leak)'],
@@ -238,7 +241,7 @@ function scanBranding() {
   } else {
     ok('no JMIS/Spring branding, foreign Supabase ref, brand green, Flutterwave or AdSense id outside the deliberate keeps');
   }
-  console.log(`  deliberate keeps (expected to remain): bluebell_* table names + jmis-theme/jmis_impersonating storage keys, "Black-Box Tech" agency credit (blackboxtech.online, info@blackboxtech.online, /blackbox-tech.jpg), blackboxinfo01@gmail.com owner account`);
+  console.log(`  deliberate keeps (expected to remain): bluebell_* table/column names + jmis-theme/jmis_impersonating storage keys, "Black-Box Tech" agency credit (blackboxtech.online, info@blackboxtech.online, /blackbox-tech.jpg), blackboxinfo01@gmail.com owner account`);
 }
 
 // ---------------------------------------------------------- routes + assets
@@ -328,13 +331,13 @@ function checkExpoApp() {
   for (const r of FORBIDDEN_REFS) {
     if (flat.includes(r)) bad(`app.json references foreign Supabase ref ${r}`);
   }
-  if (/bluebell/i.test(expo.name || '')) ok(`expo.name "${expo.name}"`);
-  else bad(`expo.name is "${expo.name}" — expected a Bluebell name`);
+  if (/black-?box/i.test(expo.name || '')) ok(`expo.name "${expo.name}"`);
+  else bad(`expo.name is "${expo.name}" — expected a Black-Box name`);
   if (expo.slug === D[4]) ok(`expo.slug "${expo.slug}"`);
   else bad(`expo.slug is "${expo.slug}"`);
   const pkg = expo.android && expo.android.package;
   if (/^com\.[a-z0-9.]*bluebell[a-z0-9.]*$/.test(pkg || '')) ok(`android.package "${pkg}"`);
-  else bad(`android.package is "${pkg}" — must be Bluebell's own so no APK can publish into JMIS's EAS project`);
+  else bad(`android.package is "${pkg}" — must be Black-Box's own so no APK can publish into JMIS's EAS project`);
   const eas = (expo.extra || {}) && (expo.extra.eas || {});
   if (!eas || !eas.projectId) ok('extra.eas.projectId is cleared (no JMIS EAS project)');
   else bad(`extra.eas.projectId is "${eas.projectId}" — belongs to the source build`);

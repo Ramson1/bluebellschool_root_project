@@ -1,4 +1,4 @@
-// Cross-tenant hardening for the Bluebell clone.
+// Cross-tenant hardening for the Black-Box clone.
 // Run from builds/bluebell:  node tools/harden.mjs [--dry]
 //
 // The text rebrand renames what it can see. These are the sites where a plain
@@ -46,7 +46,7 @@ function edit(rel, fn) {
   const CONFIG_RE = /^([ \t]*)const config = \{[ \t\r]*$/m;
   const BUTTON_RE = /^([ \t]*)<FlutterWaveButton\b[\s\S]*?\/>[ \t\r]*$/m;
   const DECL = (eol, pad) => [
-    `${pad}// Bluebell's own Flutterwave public key, from the environment. The fallback is`,
+    `${pad}// Black-Box's own Flutterwave public key, from the environment. The fallback is`,
     `${pad}// a placeholder on purpose: an unconfigured clone must never be able to collect`,
     `${pad}// school fees through another school's merchant account.`,
     `${pad}const FLUTTERWAVE_PUBLIC_KEY =`,
@@ -84,7 +84,7 @@ function edit(rel, fn) {
   // the env entry must exist so the school can fill it in one place
   edit('bluebellschool/.env', (text, eol) => (/NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY/.test(text)
     ? text
-    : `${text.replace(/\s*$/, '')}${eol}${eol}# Bluebell's own Flutterwave public key (empty = checkout stays disabled)${eol}NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY=${eol}`));
+    : `${text.replace(/\s*$/, '')}${eol}${eol}# Black-Box's own Flutterwave public key (empty = checkout stays disabled)${eol}NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY=${eol}`));
 }
 
 // --- 2. AdSense: JMIS's publisher id must not earn for JMIS off Bluebell ------
@@ -109,7 +109,7 @@ function edit(rel, fn) {
   // JMIS's publisher out of Bluebell's traffic.
   const adsRel = 'bluebellschool/public/ads.txt';
   const p = join(ROOT, adsRel);
-  const want = "# Bluebell International School has no AdSense account configured. This file\n# deliberately carries no seller entries; add Bluebell's own line if the school\n# ever enables AdSense (see the handover list in README.md).\n";
+  const want = "# Black-Box Institution has no AdSense account configured. This file\n# deliberately carries no seller entries; add Black-Box's own line if the school\n# ever enables AdSense (see the handover list in README.md).\n";
   if (!existsSync(p)) record('ads.txt', adsRel, 'missing', 'file not present');
   else if (readFileSync(p, 'utf8') === want) record('ads.txt', adsRel, 'already');
   else {
@@ -151,7 +151,7 @@ edit('bluebellschool-attendance-app/app.json', (text) => {
   const cfg = JSON.parse(text);
   const BE = backend();
   assertNotForbidden(BE.ref, 'app.json');
-  cfg.expo.name = 'Bluebell Attendance';
+  cfg.expo.name = 'Black-Box Attendance';
   cfg.expo.slug = 'bluebellschool-attendance-app';
   cfg.expo.android = { ...cfg.expo.android, package: 'com.blackbox01.bluebellschoolattendanceapp' };
   cfg.expo.extra = { ...cfg.expo.extra, supabaseUrl: BE.url, supabaseAnonKey: BE.anonKey, eas: { projectId: '' } };
