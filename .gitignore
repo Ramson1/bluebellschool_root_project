@@ -9,6 +9,9 @@ dist/
 .swc/
 coverage/
 
+# Locally built installers staged for upload (APK, offline CBT exe) - not committed
+release/
+
 # ---------------------------------------------------------------------------
 # The five app trees now have their own GitHub remotes (Ramson1/bluebellschool*,
 # bluebellschool_website, bluebellschool_staff, bluebellschool_student,
@@ -30,6 +33,7 @@ bluebell-offline-cbt/
 !.env.example
 tools/backend.json
 tools/site-content.json
+tools/cloudinary.json
 
 # Generated media (recreate with: node tools/rebrand-assets.mjs and
 # node tools/build-site-images.mjs)

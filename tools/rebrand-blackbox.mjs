@@ -34,6 +34,12 @@ const TEXT_EXT = new Set([
 
 // --- visible-name rules (case-sensitive, longest phrase first) ---------------
 const NAME_RULES = [
+  // JMIS (source) names the earlier Bluebell pass never mapped — they were
+  // shipping in the offline CBT and the admin student-record export.
+  ['Jeshurun Montessori International High School', BRAND.school.name],
+  ['Jeshurun Montessori International School', BRAND.school.name],
+  ['Jeshurun Montessori', BRAND.school.short],
+  ['Jeshurun', BRAND.school.short],
   ['Bluebell School — Bluebell International School', BRAND.school.name],
   ['Bluebell International High School', BRAND.school.name],
   ['Bluebell International School', BRAND.school.name],
@@ -125,6 +131,30 @@ function runTextPass() {
 // --- asset pass --------------------------------------------------------------
 const WHITE = { r: 255, g: 255, b: 255, alpha: 1 };
 
+// ICO container built by hand (no ImageMagick on this box); every entry is a
+// PNG payload, which Windows and electron-builder both accept.
+function buildIco(entries) {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(entries.length, 4);
+  let offset = 6 + 16 * entries.length;
+  const dir = Buffer.alloc(16 * entries.length);
+  entries.forEach((e, i) => {
+    const p = i * 16;
+    dir.writeUInt8(e.size === 256 ? 0 : e.size, p);
+    dir.writeUInt8(e.size === 256 ? 0 : e.size, p + 1);
+    dir.writeUInt8(0, p + 2);
+    dir.writeUInt8(0, p + 3);
+    dir.writeUInt16LE(1, p + 4);
+    dir.writeUInt16LE(32, p + 6);
+    dir.writeUInt32LE(e.buf.length, p + 8);
+    dir.writeUInt32LE(offset, p + 12);
+    offset += e.buf.length;
+  });
+  return Buffer.concat([header, dir, ...entries.map((e) => e.buf)]);
+}
+
 async function runAssetPass(sharp) {
   const MASTER = join(ROOT, BRAND.logoMaster);
   if (!existsSync(MASTER)) {
@@ -202,6 +232,12 @@ async function runAssetPass(sharp) {
   writes.set(`${OFFLINE}/public/logo.jpg`, jpeg1024);
   writes.set(`${OFFLINE}/public/favicon.ico`, readFileSync(logoSrc.favicon));
   writes.set(`${OFFLINE}/public/apple-touch-icon.png`, readFileSync(logoSrc.apple));
+  // electron-builder pack icon (win.icon = build/icon.ico) + the source PNG.
+  const icoSizes = [16, 24, 32, 48, 64, 128, 256];
+  writes.set(`${OFFLINE}/build/icon.png`, square1024);
+  writes.set(`${OFFLINE}/build/icon.ico`, buildIco(await Promise.all(
+    icoSizes.map(async (size) => ({ size, buf: await png(size) })),
+  )));
 
   writes.set(`${EXPO}/assets/icon.png`, square1024);
   writes.set(`${EXPO}/assets/splash-icon.png`, square1024);
