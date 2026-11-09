@@ -1267,6 +1267,15 @@ update bluebell_settings set
 insert into bluebell_userauth (email)
 select 'blackboxinfo01@gmail.com'
 where not exists (select 1 from bluebell_userauth);
+insert into bluebell_userauth (email)
+select 'admin@test.com'
+where not exists (select 1 from bluebell_userauth);
+insert into bluebell_teacherauth (email)
+select 'teacher@test.com'
+where not exists (select 1 from bluebell_teacherauth);
+insert into bluebell_secretaryauth (email)
+select 'secretary@test.com'
+where not exists (select 1 from bluebell_secretaryauth);
 
 -- Done.
 
