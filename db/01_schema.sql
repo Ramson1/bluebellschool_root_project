@@ -479,7 +479,7 @@ CREATE TABLE IF NOT EXISTS bluebell_settings (
 
 -- bluebell_staff  (19 columns, pk id)
 CREATE TABLE IF NOT EXISTS bluebell_staff (
-  id uuid,
+  id uuid DEFAULT gen_random_uuid(),
   name text not null,
   role text,
   email text,
@@ -503,6 +503,8 @@ CREATE TABLE IF NOT EXISTS bluebell_staff (
 -- Add missing columns if table already existed (idempotent)
 ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS date_of_appointment date;
 ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS can_edit_cbt_scores boolean DEFAULT false;
+-- Set default uuid generation for id column on existing tables
+ALTER TABLE bluebell_staff ALTER COLUMN id SET DEFAULT gen_random_uuid();
 
 -- bluebell_staff_assignments  (7 columns, pk id)
 CREATE TABLE IF NOT EXISTS bluebell_staff_assignments (
