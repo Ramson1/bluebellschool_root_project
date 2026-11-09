@@ -515,6 +515,9 @@ ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS can_edit_cbt_scores boolean 
 ALTER TABLE bluebell_staff ALTER COLUMN id SET DEFAULT gen_random_uuid();
 -- Set default 0 for tokenCount on existing tables
 ALTER TABLE bluebell_student ALTER COLUMN "tokenCount" SET DEFAULT 0;
+-- Add missing passport_frame column on existing tables
+ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS passport_frame text;
+ALTER TABLE bluebell_student ADD COLUMN IF NOT EXISTS passport_frame text;
 
 -- bluebell_staff_assignments  (7 columns, pk id)
 CREATE TABLE IF NOT EXISTS bluebell_staff_assignments (
@@ -564,6 +567,7 @@ CREATE TABLE IF NOT EXISTS bluebell_student (
   parentcontact text,
   token text,
   passport text,
+  passport_frame text,
   user_id text,
   auth_user_id uuid,
   portal_status text,

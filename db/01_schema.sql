@@ -498,6 +498,7 @@ CREATE TABLE IF NOT EXISTS bluebell_staff (
   qr_payload text,
   date_of_appointment date,
   can_edit_cbt_scores boolean DEFAULT false,
+  passport_frame text,
   PRIMARY KEY (id)
 );
 -- Add missing columns if table already existed (idempotent)
@@ -507,6 +508,9 @@ ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS can_edit_cbt_scores boolean 
 ALTER TABLE bluebell_staff ALTER COLUMN id SET DEFAULT gen_random_uuid();
 -- Set default 0 for tokenCount on existing tables
 ALTER TABLE bluebell_student ALTER COLUMN "tokenCount" SET DEFAULT 0;
+-- Add missing passport_frame column on existing tables
+ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS passport_frame text;
+ALTER TABLE bluebell_student ADD COLUMN IF NOT EXISTS passport_frame text;
 -- Set default 0 for tokenCount on existing tables
 ALTER TABLE bluebell_student ALTER COLUMN "tokenCount" SET DEFAULT 0;
 
@@ -564,6 +568,7 @@ CREATE TABLE IF NOT EXISTS bluebell_student (
   email text,
   address text,
   first_login boolean,
+  passport_frame text,
   "tokenCount" integer not null default 0,
   PRIMARY KEY (id)
 );
