@@ -485,6 +485,7 @@ CREATE TABLE IF NOT EXISTS bluebell_settings (
 );
 
 -- bluebell_staff  (17 columns, pk id)
+-- bluebell_staff  (19 columns, pk id)
 CREATE TABLE IF NOT EXISTS bluebell_staff (
   id uuid,
   name text not null,
@@ -503,6 +504,8 @@ CREATE TABLE IF NOT EXISTS bluebell_staff (
   profile_pic text,
   auth_user_id uuid,
   qr_payload text,
+  date_of_appointment date,
+  can_edit_cbt_scores boolean DEFAULT false,
   PRIMARY KEY (id)
 );
 
