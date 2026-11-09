@@ -6,6 +6,8 @@
 -- types, NOT NULL, primary and foreign keys). Additive and idempotent:
 -- CREATE TABLE IF NOT EXISTS only, no DROP, no ALTER of existing columns.
 -- Paste order: 01 -> 02 -> 00 -> 03 -> 04 (see db/README.md).
+-- Enable pgcrypto extension for gen_random_uuid() function
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 set search_path = public;
 
