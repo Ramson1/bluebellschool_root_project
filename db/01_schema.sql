@@ -500,6 +500,9 @@ CREATE TABLE IF NOT EXISTS bluebell_staff (
   can_edit_cbt_scores boolean DEFAULT false,
   PRIMARY KEY (id)
 );
+-- Add missing columns if table already existed (idempotent)
+ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS date_of_appointment date;
+ALTER TABLE bluebell_staff ADD COLUMN IF NOT EXISTS can_edit_cbt_scores boolean DEFAULT false;
 
 -- bluebell_staff_assignments  (7 columns, pk id)
 CREATE TABLE IF NOT EXISTS bluebell_staff_assignments (
