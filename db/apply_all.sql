@@ -603,11 +603,11 @@ ALTER TABLE bluebell_chat_messages ADD CONSTRAINT bluebell_chat_messages_convers
 ALTER TABLE bluebell_chat_messages DROP CONSTRAINT IF EXISTS bluebell_chat_messages_reply_to_id_fkey;
 ALTER TABLE bluebell_chat_messages ADD CONSTRAINT bluebell_chat_messages_reply_to_id_fkey FOREIGN KEY (reply_to_id) REFERENCES bluebell_chat_messages (id) NOT VALID;
 ALTER TABLE bluebell_staff_assignments DROP CONSTRAINT IF EXISTS bluebell_staff_assignments_staff_id_fkey;
-ALTER TABLE bluebell_staff_assignments ADD CONSTRAINT bluebell_staff_assignments_staff_id_fkey FOREIGN KEY (staff_id) REFERENCES bluebell_staff (id) NOT VALID;
+ALTER TABLE bluebell_staff_assignments ADD CONSTRAINT bluebell_staff_assignments_staff_id_fkey FOREIGN KEY (staff_id) REFERENCES bluebell_staff (id) ON DELETE CASCADE NOT VALID;
 ALTER TABLE bluebell_staff_attendance DROP CONSTRAINT IF EXISTS bluebell_staff_attendance_staff_id_fkey;
-ALTER TABLE bluebell_staff_attendance ADD CONSTRAINT bluebell_staff_attendance_staff_id_fkey FOREIGN KEY (staff_id) REFERENCES bluebell_staff (id) NOT VALID;
+ALTER TABLE bluebell_staff_attendance ADD CONSTRAINT bluebell_staff_attendance_staff_id_fkey FOREIGN KEY (staff_id) REFERENCES bluebell_staff (id) ON DELETE CASCADE NOT VALID;
 ALTER TABLE bluebell_staff_credentials DROP CONSTRAINT IF EXISTS bluebell_staff_credentials_staff_id_fkey;
-ALTER TABLE bluebell_staff_credentials ADD CONSTRAINT bluebell_staff_credentials_staff_id_fkey FOREIGN KEY (staff_id) REFERENCES bluebell_staff (id) NOT VALID;
+ALTER TABLE bluebell_staff_credentials ADD CONSTRAINT bluebell_staff_credentials_staff_id_fkey FOREIGN KEY (staff_id) REFERENCES bluebell_staff (id) ON DELETE CASCADE NOT VALID;
 
 -- Done. 31 table(s).
 
